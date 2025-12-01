@@ -4,7 +4,7 @@
 
 - clone this repo
 - install npm dependencies `npm i`
-- run it! `npm start`
+- run it! `npm test`
 
 **And then, try to solve some algos:**
 
