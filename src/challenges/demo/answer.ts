@@ -6,11 +6,11 @@
  */
 
 // ↓ uncomment bellow lines and add your response!
-/*
+
 export default function ({ users }: { users: User[] }): User[] {
-    return [];
+  return users.sort((a, b) => a.email.localeCompare(b.email))
 }
-*/
+
 
 // used interfaces, do not touch
 export interface User {

@@ -1,18 +1,18 @@
 {
-  "name": "algo-cda-nov25",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/runner.js",
-  "scripts": {
-    "start": "rimraf ./dist && tsc-watch --onSuccess \"node --inspect=0.0.0.0:9222 --nolazy ./dist/runner.js\""
-  },
-  "keywords": [],
-  "author": "Aurélien",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^14.14.7",
-    "rimraf": "^3.0.2",
-    "tsc-watch": "4.2.9",
-    "typescript": "4.0.5"
-  }
+	"name": "algo-cda-nov25",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/runner.js",
+	"scripts": {
+		"test": "rimraf ./dist && tsc-watch --onSuccess \"node --inspect=0.0.0.0:9222 --nolazy ./dist/runner.js\""
+	},
+	"keywords": [],
+	"author": "Aurélien",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^14.14.7",
+		"rimraf": "^3.0.2",
+		"tsc-watch": "4.2.9",
+		"typescript": "4.0.5"
+	}
 }
