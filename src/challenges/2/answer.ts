@@ -8,11 +8,20 @@
  */
 
 // ↓ uncomment bellow lines and add your response!
-/* 
+
 export default function ({ messages }: { messages: Message[] }): Message[] {
-  return [];
+  /*
+  return messages.sort((a, b) => {
+    const timestampA = new Date(a.sentAt).getTime()
+    const timestampB = new Date(b.sentAt).getTime()
+
+    if (timestampA === timestampB) return a.content.length - b.content.length
+    return timestampA - timestampB
+  })
+  */
+  return messages.sort((a, b) => a.sentAt.localeCompare(b.sentAt) || a.content.length - b.content.length)
 }
- */
+
 
 // used interfaces, do not touch
 export interface Message {

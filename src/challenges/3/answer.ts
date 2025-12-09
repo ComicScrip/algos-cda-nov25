@@ -9,15 +9,28 @@
  */
 
 // ↓ uncomment bellow lines and add your response!
-/*
+
 export default function ({
   categories,
 }: {
   categories: Category[];
 }): CategoryWithTags[] {
-  return [];
+  return categories.map(cat => {
+    /*
+    const tagsInCat = new Set<string>()
+    cat.ads.forEach(ad => {
+      ad.tags.forEach(tag => {
+        tagsInCat.add(tag)
+      })
+    })
+    return { ...cat, tags: [...tagsInCat].sort() }
+    */
+    const nonUniqueTags = cat.ads.flatMap(a => a.tags)
+    const uniqueTagsInCat = new Set<string>(nonUniqueTags)
+    return { ...cat, tags: [...uniqueTagsInCat].sort() }
+  })
 }
-*/
+
 
 // used interfaces, do not touch
 interface Ad {
