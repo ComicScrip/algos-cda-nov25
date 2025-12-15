@@ -15,11 +15,11 @@
   - an `output.ts` file with the expected output
 - choose the challenge you want to work on, uncomment the `export default function ...` in the `answer.ts` file and try to solve it! Don't forget to read the challenge explaination and take a look, if needed to the `input.ts` and `output.ts` files!
 
-When you think you're good, then just save the `answers.ts` file and check the result in the console! If the live reloading is not working anymore, just relaunch `npm start`.
+When you think you're good, then just save the `answers.ts` file and check the result in the console! If the live reloading is not working anymore, just relaunch `npm test`.
 
 ## Example
 
-_I did clone the repo, I did run `npm i` inside the repo and finally, I did run `npm start`! I'm ready to rock!_
+_I did clone the repo, I did run `npm i` inside the repo and finally, I did run `npm test`! I'm ready to rock!_
 
 _I want to work on the `./src/challenges/demo` challenge. I open `./src/challenges/demo/answer.ts` file to read the instructions, I take a look at the interfaces used at the end of the file. I'm still not completly sure about what I have to do, so I glance at `./src/challenges/input.ts` and `./src/challenges/demo/ouput.ts` files to see what will be submitted to my function, and what is the expected result!_
 
