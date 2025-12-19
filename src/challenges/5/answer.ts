@@ -11,15 +11,44 @@
 
 // ↓ uncomment bellow lines and add your response!
 
-/*
+
 export default function ({
   messages,
 }: {
   messages: MessageWithImages[];
 }): string[] {
-  return []
+  /*
+  // Chaque objet image devient un objet image/date sentAt
+  const imagesWithDate = messages.flatMap(message => 
+    message.images.map(image => ({image, sentAt: message.sentAt}))
+  );
+  // Dédoublonnage avec filter qui décide s'il faut le garder ou pas (true/false)
+  const seen = new Set<string>();
+  const uniqueImages = imagesWithDate.filter(item => {
+    if (seen.has(item.image)) return false; 
+    // si pas encore vu, on garde, sinon on passe au suivant
+    seen.add(item.image);
+    return true;
+  });
+
+  // Classement d'abord par date sentAt puis par image.length avec sort et localeCompare
+  uniqueImages.sort((a, b) => { // attend une fonction localeCompare qui compare a et b et retourne soit un nombre négatif, soit 0, soit un nombre positif
+    const dateCompare = a.sentAt.localeCompare(b.sentAt);
+    // Si dates différentes, on retourne dateCompare pour trier et on s'arrête là, sinon on utilise image.length car c'est le 2eme critère
+    if (dateCompare !== 0) return dateCompare;
+    return a.image.length - b.image.length;
+    // ou écriture ternaire : return dateCompare !== 0 ? dateCompare : a.image.length - b.image.length;
+  });
+
+  return uniqueImages.map(item => item.image);
+  */
+
+  return [...new Set(
+    messages.sort((a, b) => b.sentAt.localeCompare(a.sentAt))
+      .flatMap(m => m.images.sort((a, b) => a.length - b.length))
+  )]
 }
-*/
+
 
 
 // used interfaces, do not touch

@@ -11,7 +11,6 @@
 
 // ↓ uncomment bellow lines and add your response!
 
-/*
 export default function ({
   lastActivityDatetime,
   messages,
@@ -19,9 +18,22 @@ export default function ({
   lastActivityDatetime: string;
   messages: Message[];
 }): MessageWithUnread[] {
-  return []
+  /*
+  const lastActivityObj = new Date(lastActivityDatetime);
+  const res = messages
+    .sort((a, b) => a.sentAt.localeCompare(b.sentAt))
+    .map(message => {
+      return {
+        ...message,
+        unread: new Date(message.sentAt) > lastActivityObj,
+      };
+    });
+  return res;
+  */
+
+  return messages.sort((a, b) => a.sentAt.localeCompare(b.sentAt))
+    .map(m => ({ ...m, unread: m.sentAt > lastActivityDatetime }))
 }
-*/
 
 // used interfaces, do not touch
 export interface Message {
