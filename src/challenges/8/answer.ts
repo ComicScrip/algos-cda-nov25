@@ -38,8 +38,20 @@
  *  ]
  */
 
-// ↓ uncomment bellow lines and add your response!
-/* 
+/*
+function floorToHour(dateTime: Date): Date {
+  const d = new Date(dateTime.getTime());
+  d.setUTCMinutes(0, 0, 0);
+  return d;
+}
+
+function ceilToHour(dateTime: Date): Date {
+  const ms = dateTime.getTime();
+  const hourMs = 60 * 60 * 1000;
+  return new Date(Math.ceil(ms / hourMs) * hourMs);
+}
+
+// Solution 2: Complexité = O(n + h)
 export default function ({
   messages,
   fromDatetime,
@@ -49,9 +61,91 @@ export default function ({
   fromDatetime: string;
   toDatetime: string;
 }): MessageStatsSlot[] {
-  return [];
+
+  const start = floorToHour(new Date(fromDatetime));
+  const end = ceilToHour(new Date(toDatetime));
+
+  const hourMs = 60 * 60 * 1000;
+
+  const slots: MessageStatsSlot[] = [];
+  const slotMap = new Map<number, MessageStatsSlot>();
+
+  // création des slots horaires
+  for (let t = start.getTime(); t < end.getTime(); t += hourMs) {
+    const slot: MessageStatsSlot = {
+      fromDatetime: new Date(t).toISOString(),
+      toDatetime: new Date(t + hourMs).toISOString(),
+      messagesCount: 0,
+    };
+
+    slots.push(slot);
+    slotMap.set(t, slot);
+  }
+
+  // parcours des messages UNE seule fois
+  for (const message of messages) {
+    const sentAtMs = new Date(message.sentAt).getTime();
+
+    if (sentAtMs < start.getTime() || sentAtMs >= end.getTime()) continue;
+
+    const slotTime =
+      Math.floor((sentAtMs - start.getTime()) / hourMs) * hourMs +
+      start.getTime();
+
+    const slot = slotMap.get(slotTime);
+    if (slot) {
+      slot.messagesCount++;
+    }
+  }
+
+  return slots;
 }
- */
+*/
+
+export default function ({
+  messages,
+  fromDatetime,
+  toDatetime,
+}: {
+  messages: Message[];
+  fromDatetime: string;
+  toDatetime: string;
+}): MessageStatsSlot[] {
+  // Round down fromDatetime to the nearest hour
+  const from = new Date(fromDatetime);
+  from.setUTCMinutes(0, 0, 0);
+
+  // Round up toDatetime to the nearest hour (if not already on the hour)
+  const to = new Date(toDatetime);
+  if (to.getUTCMinutes() !== 0 || to.getUTCSeconds() !== 0 || to.getUTCMilliseconds() !== 0) {
+    to.setUTCMinutes(0, 0, 0);
+    to.setUTCHours(to.getUTCHours() + 1);
+  }
+
+  const slots: MessageStatsSlot[] = [];
+  const current = new Date(from);
+
+  while (current < to) {
+    const slotFrom = new Date(current);
+    const slotTo = new Date(current);
+    slotTo.setUTCHours(slotTo.getUTCHours() + 1);
+
+    const messagesCount = messages.filter((msg) => {
+      const sentAt = new Date(msg.sentAt);
+      return sentAt >= slotFrom && sentAt < slotTo;
+    }).length;
+
+    slots.push({
+      fromDatetime: slotFrom.toISOString(),
+      toDatetime: slotTo.toISOString(),
+      messagesCount,
+    });
+
+    current.setUTCHours(current.getUTCHours() + 1);
+  }
+
+  return slots;
+}
 // used interfaces, do not touch
 export interface Message {
   content: string;
